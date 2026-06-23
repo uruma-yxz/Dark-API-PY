@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação | API USER</title>
+    <style>
+        :root {
+            --bg-principal: #0a0508;
+            --bg-card: #140d12;
+            --texto-principal: #e5e1e4;
+            --texto-secundario: #a59fa3;
+            --cor-accent: #9d1c3a; /* Vermelho Escuro / Vinho */
+            --cor-purple: #63207a; /* Roxo Cyber */
+            --bg-code: #1c1219;
+            --borda: #2d1925;
+            --badge-get: #2b70c9;
+            --badge-post: #2ba157;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--borda);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--texto-principal);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        header h1 span {
+            color: var(--cor-accent);
+        }
+
+        .prefix-global {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--texto-secundario);
+        }
+
+        .prefix-global strong {
+            color: var(--cor-purple);
+        }
+
+        .endpoint-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .endpoint-header {
+            background-color: rgba(20, 13, 18, 0.6);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--borda);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .method {
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .method.post { background-color: rgba(43, 161, 87, 0.2); color: var(--badge-post); border: 1px solid var(--badge-post); }
+        .method.get { background-color: rgba(43, 112, 201, 0.2); color: var(--badge-get); border: 1px solid var(--badge-get); }
+
+        .path {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--texto-principal);
+        }
+
+        .description {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+            margin-left: auto;
+        }
+
+        .endpoint-body {
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--cor-purple);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .meta-info p {
+            margin-bottom: 5px;
+            color: var(--texto-secundario);
+        }
+
+        .meta-info strong {
+            color: var(--texto-principal);
+            font-family: monospace;
+        }
+
+        pre {
+            background-color: var(--bg-code);
+            border: 1px solid var(--borda);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #d4a5cb;
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: var(--bg-code);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--borda);
+        }
+
+        .params-table th, .params-table td {
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .params-table th {
+            background-color: rgba(99, 32, 122, 0.1);
+            color: var(--texto-principal);
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .params-table td {
+            border-bottom: 1px solid rgba(45, 25, 37, 0.5);
+            color: var(--texto-secundario);
+        }
+
+        .params-table td strong {
+            color: var(--cor-accent);
+            font-family: monospace;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .endpoint-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .description { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>API <span>USER</span></h1>
+            <div class="prefix-global">Rota Pai: <strong>/api</strong></div>
+        </header>
+
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method post">POST</span>
+                <span class="path">/api/create</span>
+                <span class="description">Criação de um novo usuário no sistema</span>
+            </div>
+            <div class="endpoint-body">
+                <div class="meta-info">
+                    <p><strong>Headers obrigatórios:</strong></p>
+                    <p>Content-Type: <strong>application/json</strong></p>
+                </div>
+                
+                <div class="section-title">Payload (JSON Body)</div>
+                <pre>{
+  "pais": "SEUPAIS",
+  "name": "SEUNOME",
+  "email": "SEUEMAIL@gmail.com",
+  "password": "SUA SENHA"
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="path">/api/busca/</span>
+                <span class="description">Busca flexível de usuário por múltiplos critérios</span>
+            </div>
+            <div class="endpoint-body">
+                <div class="section-title">Parâmetros de Query (Query Params)</div>
+                <table class="params-table">
+                    <thead>
+                        <tr>
+                            <th>Parâmetro</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>id</strong></td>
+                            <td>String / Integer</td>
+                            <td>O ID único do usuário cadastrado no banco.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nome</strong></td>
+                            <td>String</td>
+                            <td>O nome ou parte do nome do usuário que deseja buscar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <span class="path">/api/id/{SEUID}</span>
+                <span class="description">Busca direta e estrita por ID único</span>
+            </div>
+            <div class="endpoint-body">
+                <div class="section-title">Parâmetros de URL (Path Params)</div>
+                <table class="params-table">
+                    <thead>
+                        <tr>
+                            <th>Parâmetro</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>{SEUID}</strong></td>
+                            <td>String / Integer</td>
+                            <td>Insira o ID do usuário diretamente na URL (ex: <small style="font-family: monospace; color: var(--cor-purple);">/api/id/
